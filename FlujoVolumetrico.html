@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flujo Masico de PPH a KG/H</title>
+  
+  	<style>
+        body {
+            background-color: 808080; /* Gris oscuro */
+            color: black;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+  
+    <script>
+        function convertirPPH_a_KG() {
+            // Obtener el valor de PPH desde el cuadro de texto
+            var pph = parseFloat(document.getElementById("pph").value);
+
+            // Verificar si el valor es válido
+            if (isNaN(pph)) {
+                alert("Por favor, ingresa un número válido.");
+                return;
+            }
+
+            // Convertir el valor a kg/h usando la constante de conversión
+            var kg_h = pph * 0.453592;
+
+            // Mostrar el resultado en el cuadro de texto de kg/h
+            document.getElementById("kg_h").value = kg_h.toFixed(2);
+        }
+      
+        function updateFlow() {
+            const massFlow = parseFloat(document.getElementById('massFlow').value);
+            const density = parseFloat(document.getElementById('density').value);
+
+            const resultField = document.getElementById('volumetricFlow');
+
+            if (isNaN(massFlow) || massFlow <= 0 || isNaN(density) || density <= 0) {
+                resultField.value = "--";
+                return;
+            }
+
+            // Cálculo del flujo volumétrico
+            const volumetricFlow = massFlow / density;
+
+            // Mostrar el resultado en el campo de texto
+            resultField.value = volumetricFlow.toFixed(2);
+        }
+
+        // Agregar eventos de entrada a los campos después de que el contenido esté cargado
+        window.onload = function() {
+            document.getElementById('massFlow').addEventListener('input', updateFlow);
+            document.getElementById('density').addEventListener('input', updateFlow);
+        };
+      
+    </script>
+</head><br>
+<body>
+  <div style="background-color: lightblue; padding: 20px; margin-bottom: 20px; width: 80%; margin: 0 auto; border-radius: 10px;">
+  <h2 style="text-align: center;">Conversión de Flujo Masico PPH a KG/H</h2>
+    
+    <p>Para convertir de flujo másico en libras por hora (PPH, por sus siglas en inglés) a kilogramos por hora (kg/h), se utiliza la siguiente relación de conversión entre libras y kilogramos:</p>
+    <pre style="text-align: center;">1 libra = 0.453592 kg</pre>
+    
+    <p>Entonces, la fórmula para convertir el flujo másico de libras por hora a kilogramos por hora es:</p>
+    <pre style="text-align: center;">m (kg/h) = m (PPH) × 0.453592</pre>
+  
+  <form id="conversionForm" style="display: table; width: 100%; border-spacing: 10px;">
+    <div style="display: table-row;">
+        <div style="display: table-cell; font-weight: bold; text-align: right;">Ingresa el flujo másico:</div>
+        <div style="display: table-cell;"><input type="text" id="pph" oninput="convertirPPH_a_KG()" style="width: 90px;"> PPH</div>
+    </div>
+    <div style="display: table-row;">
+        <div style="display: table-cell; font-weight: bold; text-align: right;">Resultado flujo másico:</div>
+        <div style="display: table-cell;"><input type="text" id="kg_h" readonly style="width: 90px;"> Kg/H</div>
+    </div>
+</form>
+    </div><br>
+    
+  
+  <div style="background-color: lightblue; padding: 20px; margin-bottom: 20px; width: 80%; margin: 0 auto; border-radius: 10px;">
+        <h2 style="text-align: center;">Conversión de Flujo Másico a Flujo Volumétrico</h2>
+
+    <p>Para convertir de flujo másico a flujo volumétrico, utilizamos la siguiente fórmula que añade la densidad del fluido:</p>
+
+    <p><strong>Fórmula:</strong></p>
+    <p>
+<b>V</b> Flujo volumétrico [m³/h] = <b>m</b> Flujo másico [kg/h] / <b>&rho;</b> Densidad [kg/m³]
+    </p>
+
+    <p>Para la siguiente calculadora se tomara por defecto la densidad del Metano 0.657 kg/m³</p>
+
+    <form id="conversionForm" style="display: table; width: 100%; border-spacing: 10px;">
+    <div style="display: table-row;">
+        <div style="display: table-cell; font-weight: bold; text-align: right;">Flujo másico:</div>
+        <div style="display: table-cell;"><input type="number" id="massFlow" name="massFlow" step="any" required style="width: 90px;"> kg/h</div>
+    </div>
+    <div style="display: table-row;">
+        <div style="display: table-cell; font-weight: bold; text-align: right;">Densidad:</div>
+        <div style="display: table-cell;"><input type="number" id="density" name="density" step="any" value="0.657" required style="width: 90px;"> kg/m³</div>
+    </div>
+    <div style="display: table-row;">
+        <div style="display: table-cell; font-weight: bold; text-align: right;">Flujo volumétrico:</div>
+        <div style="display: table-cell;"><input type="text" id="volumetricFlow" name="volumetricFlow" readonly style="width: 90px;"> m³/h</div>
+    </div>
+</form>
+</div><br>
+</body>
+</html>
