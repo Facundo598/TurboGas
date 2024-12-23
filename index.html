@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Información - Turbina de Gas</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #E3E4E5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        nav {
+            background-color: #1e3c72;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #2a5298;
+        }
+
+        .main-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .turbine-image {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .turbine-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .component-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .component-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .useful-links {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .useful-links ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .useful-links li {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            transition: transform 0.2s;
+        }
+
+        .useful-links li:hover {
+            transform: translateY(-2px);
+        }
+
+        .useful-links a {
+            color: #1e3c72;
+            text-decoration: none;
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sistema de Turbina de Gas</h1>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#compresor">Compresor</a></li>
+                <li><a href="#combustion">Cámara de Combustión</a></li>
+                <li><a href="#turbina">Turbina</a></li>
+                <li><a href="#auxiliares">Sistemas Auxiliares</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <section>
+                <h2>Vista General</h2>
+                <p>Bienvenido al sistema de información de turbinas de gas. Este sistema proporciona información detallada sobre los componentes principales y su funcionamiento.</p>
+                
+               <div class="turbine-image">
+    				<img src="Img/Turbogas.gif" alt="Esquema de Turbina de Gas">
+              </div>
+            </section>
+
+            <section class="components-grid">
+                <div class="component-card">
+                    <h3>Compresor</h3>
+                    <p>Sistema de compresión de aire para el proceso de combustión.</p>
+                </div>
+                <div class="component-card">
+                    <h3>Cámara de Combustión</h3>
+                    <p>Zona donde se realiza la mezcla y combustión del aire con el combustible.</p>
+                </div>
+                <div class="component-card">
+                    <h3>Turbina</h3>
+                    <p>Componente que extrae la energía de los gases de combustión.</p>
+                </div>
+                <div class="component-card">
+                    <h3>Sistemas Auxiliares</h3>
+                    <p>Sistemas de apoyo y control para el funcionamiento óptimo.</p>
+                </div>
+            </section>
+        </main>
+
+        <section class="useful-links">
+            <h2>Enlaces Útiles</h2>
+            <ul>
+                <li><a href="CalcBulboHumedo.html" target="_blank">Calculadora Bulbo Húmedo</a></li>
+                <li><a href="FlujoVolumetrico.html" target="_blank">Caudal Másico a Volumétrico</a></li>
+            </ul>
+        </section>
+
+
+        <footer>
+            <p>Sistema de Información de Turbinas de Gas © 2024</p>
+        </footer>
+    </div>
+</body>
+</html>
