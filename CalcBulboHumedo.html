@@ -3,25 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Temperatura de Bulbo Húmedo</title>
+    <title>Calculadoras</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
             background-color: #E3E4E5;
+            padding: 20px;
         }
 
         .container {
             width: 80%;
-        	background: lightblue;
+            background: lightblue;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             text-align: center;
+            margin-bottom: 20px;
         }
 
         .slider-container {
@@ -29,7 +30,7 @@
         }
 
         input[type="range"] {
-            width: 30%; /* Hace que el slider ocupe todo el ancho disponible */
+            width: 50%;
             margin: 10px 0;
         }
 
@@ -41,25 +42,40 @@
     </style>
 </head>
 <body>
+    <!-- Calculadora de Bulbo Húmedo -->
     <div class="container">
         <h1>Calculadora de Temperatura de Bulbo Húmedo</h1>
-
         <div class="slider-container">
             <label for="temperature">Temperatura (°C): <span id="temp-value">25</span></label>
-            <input type="range" id="temperature" min="-20" max="50" value="25" step="0.5" oninput="updateValues()">
+            <input type="range" id="temperature" min="0" max="50" value="25" step="0.5" oninput="updateBulboHumedo()">
         </div>
-
         <div class="slider-container">
             <label for="humidity">Humedad (%): <span id="hum-value">50</span></label>
-            <input type="range" id="humidity" min="0" max="100" value="50" step="0.5" oninput="updateValues()">
+            <input type="range" id="humidity-bulbo" min="0" max="100" value="50" step="0.5" oninput="updateBulboHumedo()">
         </div>
-
         <div class="result">
             Temperatura de Bulbo Húmedo: <span id="bulbo-humedo">0</span> °C
         </div>
     </div>
 
+    <!-- Calculadora de Temperatura Ambiente -->
+    <div class="container">
+        <h1>Calculadora de Temperatura Ambiente</h1>
+        <div class="slider-container">
+            <label for="bulbo">Temp. Bulbo Húmedo (°C): <span id="bulbo-value">25</span></label>
+            <input type="range" id="bulbo" min="0" max="50" value="25" step="0.5" oninput="updateTempAmbiente()">
+        </div>
+        <div class="slider-container">
+            <label for="humidity">Humedad (%): <span id="hum-ambiente-value">50</span></label>
+            <input type="range" id="humidity-ambiente" min="0" max="100" value="50" step="0.5" oninput="updateTempAmbiente()">
+        </div>
+        <div class="result">
+            Temperatura Ambiente: <span id="temp-ambiente">0</span> °C
+        </div>
+    </div>
+
     <script>
+        // Calculadora de Bulbo Húmedo
         function calculateBulboH(temp, hum) {
             return (
                 0.5649 * temp +
@@ -71,9 +87,9 @@
             ).toFixed(2);
         }
 
-        function updateValues() {
+        function updateBulboHumedo() {
             const temp = parseFloat(document.getElementById('temperature').value);
-            const hum = parseFloat(document.getElementById('humidity').value);
+            const hum = parseFloat(document.getElementById('humidity-bulbo').value);
 
             document.getElementById('temp-value').textContent = temp;
             document.getElementById('hum-value').textContent = hum;
@@ -82,8 +98,45 @@
             document.getElementById('bulbo-humedo').textContent = bulboH;
         }
 
-        // Initialize values on load
-        updateValues();
+        // Calculadora de Temperatura Ambiente
+        function calculateTempAmbiente(bulboH, hum) {
+            let tempEstimate = 20; // Valor inicial estimado
+            let tolerance = 0.01; // Tolerancia para el cálculo iterativo
+
+            while (true) {
+                let calculatedBulbo = (
+                    0.5649 * tempEstimate +
+                    0.295 * hum +
+                    0.00075 * Math.pow(tempEstimate, 2) +
+                    0.0044 * tempEstimate * hum -
+                    0.0016 * Math.pow(hum, 2) -
+                    14.606
+                );
+
+                if (Math.abs(calculatedBulbo - bulboH) < tolerance) {
+                    break;
+                }
+
+                tempEstimate += (bulboH - calculatedBulbo) * 0.1;
+            }
+
+            return tempEstimate.toFixed(2);
+        }
+
+        function updateTempAmbiente() {
+            const bulboH = parseFloat(document.getElementById('bulbo').value);
+            const hum = parseFloat(document.getElementById('humidity-ambiente').value);
+
+            document.getElementById('bulbo-value').textContent = bulboH;
+            document.getElementById('hum-ambiente-value').textContent = hum;
+
+            const tempAmbiente = calculateTempAmbiente(bulboH, hum);
+            document.getElementById('temp-ambiente').textContent = tempAmbiente;
+        }
+
+        // Initialize both calculators on load
+        updateBulboHumedo();
+        updateTempAmbiente();
     </script>
 </body>
 </html>
